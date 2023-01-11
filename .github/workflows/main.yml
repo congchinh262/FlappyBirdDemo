@@ -93,11 +93,11 @@ jobs:
           name: Build
           path: build
       - name: List Folders
-        run: ls -al
-#       - name: Deploy
-#         uses: JamesIves/github-pages-deploy-action@v4
-#         with:
-#           folder: 'WebGL/WebGL'
+        run: ls -al build/
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: 'build/WebGL/WebGL'
 #  requestActivation:
 #    name: Request activation ✔
 #    runs-on: ubuntu-latest
