@@ -98,6 +98,8 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: 'build/WebGL/WebGL'
+          GITHUB_TOKEN: ${{ github.token }}
+          ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 #  requestActivation:
 #    name: Request activation ✔
 #    runs-on: ubuntu-latest
