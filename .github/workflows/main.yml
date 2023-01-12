@@ -101,7 +101,7 @@ jobs:
       #     GITHUB_TOKEN: ${{ github.token }}
       #     ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
       - name: Login Docker
-        run: cat ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdi
       - name: Build Docker image
         run: docker-compose -f build.yml build build
       - name: Push image to Docker Registry
