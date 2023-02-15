@@ -14,6 +14,8 @@ jobs:
     name: Prebuild
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2F
       - name: Filter large files
         run: cat $(git filter-repo --strip-blobs-bigger-than 1M) > .largefiles
       - name: Echo files
