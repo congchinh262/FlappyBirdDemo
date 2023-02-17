@@ -11,15 +11,16 @@ env:
 jobs:
   prebuild:
     name: Prebuild
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install LFS
         run: git lfs install
   build:
+    needs: ['prebuild']
     name: Build Workflow ✨
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -75,7 +76,7 @@ jobs:
 
   requestManualActivationFile:
     name: Request manual activation file 🔑
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       # Checkout repository
       - uses: actions/checkout@v2
@@ -91,7 +92,7 @@ jobs:
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
   deploy:
     name: Deploy to Docker
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: ["build"]
     steps:
       - name: Checkout
@@ -111,7 +112,7 @@ jobs:
         run: docker image push congchinh262/flappy-bird:latest
   cleanUp:
     name: Clean up
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: ['build','deploy']
     steps:
       - name: Checkout
@@ -120,14 +121,14 @@ jobs:
         run: git lfs uninstall
 #  requestActivation:
 #    name: Request activation ✔
-#    runs-on: ubuntu-latest
+#    runs-on: self-hosted
 #    steps:
 #      - uses: actions/checkout@v2
 #      - uses: game-ci/unity-activate@v2
 #
 #  activateAndThenReturnLicense:
 #    name: returnLicense 🎈
-#    runs-on: ubuntu-latest
+#    runs-on: self-hosted
 #    steps:
 #      - uses: actions/checkout@v2
 #      - uses: game-ci/unity-activate@v2
