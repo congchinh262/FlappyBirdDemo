@@ -65,6 +65,19 @@ jobs:
       #    projectPath: .
 
       # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        with:
+          projectPath: .
+          targetPlatform: WebGL
+          versioning: Semantic
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
+      # Build Docker
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:

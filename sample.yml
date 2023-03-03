@@ -64,6 +64,19 @@ jobs:
       #    projectPath: .
 
       # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        with:
+          projectPath: .
+          targetPlatform: WebGL
+          versioning: Semantic
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
+      # Build Docker
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -72,6 +85,7 @@ jobs:
           tags: ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           username: ${{ env.REGISTRY_USERNAME }}
           password: ${{ env.REGISTRY_PASSWORD }}
+      # Deploy
       - name: Deploy to Azure Web App
         uses: azure/webapps-container-deploy@v2
         with:
