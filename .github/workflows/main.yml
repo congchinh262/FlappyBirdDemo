@@ -92,6 +92,9 @@ jobs:
           tags: ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           # username: ${{ env.REGISTRY_USERNAME }}
           # password: ${{ env.REGISTRY_PASSWORD }}
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
