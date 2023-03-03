@@ -20,7 +20,7 @@ env:
 jobs:
   prebuild:
     name: Prebuild
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,7 +31,7 @@ jobs:
   build-and-deploy:
     needs: ['prebuild']
     name: Build Workflow ✨
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -96,7 +96,7 @@ jobs:
 
   requestManualActivationFile:
     name: Request manual activation file 🔑
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     steps:
       # Checkout repository
       - uses: actions/checkout@v2
@@ -112,7 +112,7 @@ jobs:
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
   deploy:
     name: Deploy to Docker
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     needs: ["build"]
     steps:
       - name: Checkout
@@ -132,7 +132,7 @@ jobs:
         run: docker image push congchinh262/flappy-bird:latest
   cleanUp:
     name: Clean up
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     needs: ['build','deploy']
     steps:
       - name: Checkout
@@ -141,14 +141,14 @@ jobs:
         run: git lfs uninstall
 #  requestActivation:
 #    name: Request activation ✔
-#    runs-on: self-hosted
+#    runs-on: ubuntu-20.04
 #    steps:
 #      - uses: actions/checkout@v2
 #      - uses: game-ci/unity-activate@v2
 #
 #  activateAndThenReturnLicense:
 #    name: returnLicense 🎈
-#    runs-on: self-hosted
+#    runs-on: ubuntu-20.04
 #    steps:
 #      - uses: actions/checkout@v2
 #      - uses: game-ci/unity-activate@v2
