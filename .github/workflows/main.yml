@@ -110,30 +110,10 @@ jobs:
         with:
           name: Manual Activation File
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-  deploy:
-    name: Deploy to Docker
-    runs-on: ubuntu-20.04
-    needs: ["build"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: Build
-          path: build
-      - name: List Folders
-        run: ls -al build/
-      - name: Login Docker
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
-      - name: Build Docker image
-        run: docker build . -t congchinh262/flappy-bird:latest
-      - name: Push image to Docker Registry
-        run: docker image push congchinh262/flappy-bird:latest
   cleanUp:
     name: Clean up
     runs-on: ubuntu-20.04
-    needs: ['build','deploy']
+    needs: ['build-and-deploy']
     steps:
       - name: Checkout
         uses: actions/checkout@v2
