@@ -100,9 +100,8 @@ jobs:
         with:
           app-name: ${{ env.WEB_APP_NAME }}
           images: '${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}'
-          resource-group: ${{ env.RESOURCE_GROUP_NAME }}
+          resource-group-name: ${{ env.RESOURCE_GROUP_NAME }}
           # app-service-plan: ${{ env.APP_SERVICE_PLAN_NAME }}
-          region: ${{ env.REGION_NAME }}
 
       # Output
       - uses: actions/upload-artifact@v2
