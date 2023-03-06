@@ -97,18 +97,13 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         # deploy container from registry to azure web app
 
-      - name: Deploy to Azure Static Web App
-        uses: azure/static-web-apps-deploy@v1
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
         with:
-          app-location: "/"
-          output-location: "/wwwroot"
-          sku: "Free"
           app-name: ${{ env.WEB_APP_NAME }}
-          resource-group: ${{ env.RESOURCE_GROUP_NAME }}
-          docker-image-tag: ${{ github.sha }}
-          docker-image-name: ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}
-          skip-api-build: true
-          
+          images: ${{ env.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          resource-group-name: ${{ env.RESOURCE_GROUP_NAME }}
+          # app-service-plan: ${{ env.APP_SERVICE_PLAN_NAME }}
 
       # Output
       - uses: actions/upload-artifact@v2
